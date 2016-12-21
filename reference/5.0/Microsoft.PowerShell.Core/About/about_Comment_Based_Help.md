@@ -53,15 +53,19 @@ script. To help users, provide this information in the parameter description.
 
 The syntax for comment-based help is as follows:
 
+```powershell
 .< help keyword>
 <help content>
+```
 
 -or -
 
+```powershell
 <#
 .< help keyword>
 < help content>
 #>
+```
 
 Comment-based help is written as a series of comments. You can type a
 comment symbol (#) before each line of comments, or you can use the "<#" and "#>"
@@ -80,10 +84,12 @@ keyword names are not case-sensitive.
 For example, the Description keyword precedes a description of a function or
 script.
 
+```powershell
 <#
 .Description
 Get-Function displays the name and syntax of all functions in the session.
 #>
+```
 
 The comment block must contain at least one keyword. Some of the keywords,
 such as EXAMPLE, can appear many times in the same comment block. The help
@@ -105,6 +111,7 @@ keyword.
 
 For example:
 
+```powershell
 function Get-Function
 {
 <#
@@ -114,9 +121,11 @@ function Get-Function
 
 <function commands>
 }
+```
 
 -or -
 
+```powershell
 function Get-Function
 {
 <function commands>
@@ -126,14 +135,17 @@ function Get-Function
 < help content>
 #>
 }
+```
 
 -or -
 
+```powershell
 <#
 .< help keyword>
 < help content>
 #>
 function Get-Function { }
+```
 
 # SYNTAX FOR COMMENT-BASED HELP IN SCRIPTS
 
@@ -155,21 +167,25 @@ script is occupied by the signature block.
 
 For example:
 
+```powershell
 <#
 .< help keyword>
 < help content>
 #>
 
 function Get-Function { }
+```
 
 -or-
 
+```powershell
 function Get-Function { }
 
 <#
 .< help keyword>
 < help content>
 #>
+```
 
 # SYNTAX FOR COMMENT-BASED HELP IN SCRIPT MODULES
 
@@ -182,12 +198,14 @@ For example, if you are using the ExternalHelp keyword to
 identify the XML-based help files for the functions in a script
 module, you must add an ExternalHelp comment to each function.
 
+```powershell
 .ExternalHelp <XML-file-name>
 function <function-name>
 {
 # ...
 
 }
+```
 
 # COMMENT-BASED HELP KEYWORDS
 
@@ -206,7 +224,7 @@ only once in each topic.
 A detailed description of the function or script. This keyword can be
 used only once in each topic.
 
-.PARAMETER  <Parameter-Name>
+#.PARAMETER  ``<Parameter-Name>``
 The description of a parameter. Add a .PARAMETER keyword for
 each parameter in the function or script syntax.
 
@@ -278,23 +296,23 @@ command includes the Role parameter of Get-Help.
 The intended use of the function. This content appears when the Get-Help
 command includes the Functionality parameter of Get-Help.
 
-.FORWARDHELPTARGETNAME <Command-Name>
+.FORWARDHELPTARGETNAME \<Command-Name>
 Redirects to the help topic for the specified command. You can redirect
 users to any help topic, including help topics for a function, script,
 cmdlet, or provider.
 
-.FORWARDHELPCATEGORY  <Category>
+.FORWARDHELPCATEGORY  \<Category>
 Specifies the help category of the item in ForwardHelpTargetName.
 Valid values are Alias, Cmdlet, HelpFile, Function, Provider, General,
 FAQ, Glossary, ScriptCommand, ExternalScript, Filter, or All. Use this
 keyword to avoid conflicts when there are commands with the same name.
 
-.REMOTEHELPRUNSPACE <PSSession-variable>
+.REMOTEHELPRUNSPACE \<PSSession-variable>
 Specifies a session that contains the help topic. Enter a variable that
 contains a PSSession. This keyword is used by the Export-PSSession
 cmdlet to find the help topics for the exported commands.
 
-.EXTERNALHELP  <XML Help File>
+.EXTERNALHELP  \<XML Help File>
 Specifies an XML-based help file for the script or function.
 
 The ExternalHelp keyword is required when a function or script
@@ -311,7 +329,7 @@ ExternalHelp keyword to a file name without a path. Get-Help looks for
 the specified file name in a language-specific subdirectory of the module
 directory. There are no requirements for the name of the XML-based help
 file for a function, but a best practice is to use the following format:
-<ScriptModule.psm1>-help.xml
+\<ScriptModule.psm1>-help.xml
 
 If the function is not included in a module, include a path to the
 XML-based help file. If the value includes a path and the path contains
@@ -389,6 +407,7 @@ While it is disabled, the comment-based help has no effect.
 
 For example, the following function has comment-based help.
 
+```powershell
 <#
 # .SYNOPSIS
 
@@ -400,10 +419,12 @@ param ([string]$Name,[string]$Extension = "txt")
 # ...
 
 }
+```
 
 To disable the comment-based help, enclose it in a here-string,
 as shown in the following example.
 
+```powershell
 # @"
 
 <#
@@ -419,12 +440,14 @@ param ([string]$Name,[string]$Extension = "txt")
 # ...
 
 }
+```
 
 To hide the disabled comment-based help, assign the here-string to
 a local variable that is not otherwise used in the function, as
 shown in the following example. You can also pipe it to the Out-Null
 cmdlet.
 
+```powershell
 $x = @"
 <#
 # .SYNOPSIS
@@ -439,6 +462,7 @@ param ([string]$Name,[string]$Extension = "txt")
 # ...
 
 }
+```
 
 For more information about here-strings, see about_Quoting_Rules
 (http://go.microsoft.com/fwlink/?LinkID=113253).
@@ -450,6 +474,7 @@ Example 1: Comment-based Help for a Function
 
 The following sample function includes comment-based help:
 
+```powershell
 function Add-Extension
 {
 param ([string]$Name,[string]$Extension = "txt")
@@ -504,6 +529,7 @@ http://www.fabrikam.com/extension.html
 Set-Item
 #>
 }
+```
 
 The results are as follows:
 
@@ -519,7 +545,7 @@ Adds a file name extension to a supplied name.
 
 # SYNTAX
 
-Add-Extension [[-Name] <String>] [[-Extension] <String>] [<CommonParameters>]
+Add-Extension [[-Name] \<String>] [[-Extension] \<String>] [\<CommonParameters>]
 
 # DESCRIPTION
 
@@ -545,13 +571,13 @@ Default value
 Accept pipeline input?       false
 Accept wildcard characters?
 
-<CommonParameters>
+\<CommonParameters>
 This cmdlet supports the common parameters: -Verbose, -Debug,
 -ErrorAction, -ErrorVariable, -WarningAction, -WarningVariable,
 -OutBuffer and -OutVariable. For more information, type
 "get-help about_commonparameters".
 
-INPUTs
+# INPUTs
 None. You cannot pipe objects to Add-Extension.
 
 # OUTPUTS
@@ -584,6 +610,7 @@ This example is the same as the previous one, except that the parameter
 descriptions are inserted in the function syntax. This format is most
 useful when the descriptions are brief.
 
+```powershell
 function Add-Extension
 {
 param
@@ -642,6 +669,7 @@ http://www.fabrikam.com/extension.html
 Set-Item
 #>
 }
+```
 
 Example 3: Comment-based Help for a Script
 
@@ -653,6 +681,7 @@ two blank lines between the final comment in the help topic and the first
 function declaration. Without these blank lines, Get-Help associates the
 help topic with the function, not the script.
 
+```powershell
 <#
 # .SYNOPSIS
 
@@ -663,10 +692,10 @@ Performs monthly data updates.
 The Update-Month.ps1 script updates the registry with new data generated
 during the past month and generates a report.
 
-.PARAMETER InputPath
+# .PARAMETER InputPath
 Specifies the path to the CSV-based input file.
 
-.PARAMETER OutputPath
+# .PARAMETER OutputPath
 Specifies the name and path for the CSV-based output file. By default,
 MonthlyUpdates.ps1 generates a name from the date and time it runs, and
 saves the output in the local directory.
@@ -696,6 +725,7 @@ param ([string]$InputPath, [string]$OutPutPath)
 
 function Get-Data { }
 # ...
+```
 
 
 The following command gets the script help. Because the script is not
@@ -714,8 +744,8 @@ Performs monthly data updates.
 
 # SYNTAX
 
-C:\ps-test\Update-Month.ps1 [-InputPath] <String> [[-OutputPath]
-<String>] [<CommonParameters>]
+C:\ps-test\Update-Month.ps1 [-InputPath] \<String> [[-OutputPath]
+\<String>] [\<CommonParameters>]
 
 # DESCRIPTION
 
@@ -744,7 +774,7 @@ Default value
 Accept pipeline input?       false
 Accept wildcard characters?
 
-<CommonParameters>
+\<CommonParameters>
 This cmdlet supports the common parameters: -Verbose, -Debug,
 -ErrorAction, -ErrorVariable, -WarningAction, -WarningVariable,
 -OutBuffer and -OutVariable. For more information, type,
@@ -787,16 +817,19 @@ an XML-based help topic for the script.
 Note that the value of the ExternalHelp keyword appears on the same
 line as the keyword. Any other placement is ineffective.
 
+```powershell
  .ExternalHelp C:\MyScripts\Update-Month-Help.xml
 
 param ([string]$InputPath, [string]$OutPutPath)
 function Get-Data { }
 # ...
+```
 
 
 The following example shows three valid placements of the ExternalHelp keyword
 in a function.
 
+```powershell
 function Add-Extension
 {
 .ExternalHelp C:\ps-test\Add-Extension.xml
@@ -822,6 +855,7 @@ param ([string] $name, [string]$extension = "txt")
 $name = $name + "." + $extension
 $name
 }
+```
 
 Example 5:  Redirecting to a Different Help Topic
 
@@ -832,6 +866,7 @@ the help function, the help function uses the ForwardHelpTargetName and
 ForwardHelpCategory keywords to redirect the user to the Get-Help cmdlet
 help topic.
 
+```powershell
 function help
 {
 
@@ -845,6 +880,7 @@ param(
 [System.String]
 ${Name},
 # ...
+```
 
 
 The following command uses this feature:
